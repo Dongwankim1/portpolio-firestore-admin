@@ -5,7 +5,7 @@ import React from 'react';
 import { common } from '@material-ui/core/colors';
 import './Header.css'
 
-const Header = ({menuOpen,setMenuOpen}) =>{
+const Header = ({menuOpen,setMenuOpen,user,logout}) =>{
 
     const handleMenu =() =>{
         setMenuOpen(!menuOpen)
@@ -14,8 +14,8 @@ const Header = ({menuOpen,setMenuOpen}) =>{
 
     return(
         <div className={"topbar " + (menuOpen && "active")}>
-            <div className="wrapper">
-                <div className="left">
+            <div className="Header__wrapper">
+                <div className="Header__left">
                 <a href="https://github.com/Dongwankim1">
                         <FacebookIcon   style={menuOpen ? ({ color: common.white }) : null} fontSize="large"/>
                         </a>
@@ -30,10 +30,14 @@ const Header = ({menuOpen,setMenuOpen}) =>{
 
                     </div>
                 </div>
-                <div className="middle">
+                <div className="Header__middle">
               
                 </div>
-                <div className="right">
+                <div className="Header__right">
+                    {user ? (<div className="logout">
+                        <button className="logoutButton" onClick={logout}>LOGOUT</button>
+                    </div>):null}
+                    
                     <div className={"hamburger " + (menuOpen && "active")} onClick={handleMenu} >
                         <span className="line1"></span>
                         <span className="line2"></span>

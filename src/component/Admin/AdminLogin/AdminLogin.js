@@ -1,13 +1,28 @@
 import React,{useRef, useState,useEffect} from 'react';
 import './AdminLogin.css';
+import firebase from '../../../firebase';
 
 
-
-export default function AdminLogin({setUser}) {
+export default function AdminLogin({user,setUser}) {
 
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
+    const handleSignIn = (e)=>{
+        e.preventDefault();
+
+        console.log(firebase);
+        firebase.auth().signInWithEmailAndPassword(
+            email,
+            password
+        ).then((authUser)=>{
+            console.log(authUser);
+            setUser(authUser);
+            //history.push('/admin/dashBoard');
+        }).catch((err)=>{
+            alert(err.message)
+        })
+    }
 
 
     return (
@@ -19,7 +34,7 @@ export default function AdminLogin({setUser}) {
                     <div className="font-mono text-3xl">Sign In</div>
                     <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder="Email" />
                     <input onChange={(e)=>setPassword(e.target.value)} value={password} placeholder="Password" type="password"></input>
-                    <button type="submit" >Sign In</button>
+                    <button type="submit" onClick={handleSignIn}>Sign In</button>
                     <h4></h4>
                 </form>
             
