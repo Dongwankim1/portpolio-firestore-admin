@@ -1,12 +1,13 @@
 import React from 'react'
 import AdminLogin from './AdminLogin/AdminLogin'
-
+import AdminMainBoard from './AdminMainBoard/AdminMainBoard'
+import './Admin.css';
 export default function Admin({user,setUser}) {
     
 
     return (
-        <div>
-            {!user ? <AdminLogin user={user} setUser={setUser}/> : null}
+        <div className="Admin">
+            {!user ? <AdminLogin user={user} setUser={setUser}/> : <AdminMainBoard/>}
         </div>
     )
 }
