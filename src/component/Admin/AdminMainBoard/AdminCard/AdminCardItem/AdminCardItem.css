@@ -1,0 +1,8 @@
+.AdminCardItem{
+    height: 60px;
+    display:flex;
+}
+
+.AdminCardItem__Cancle{
+    cursor: pointer;
+}

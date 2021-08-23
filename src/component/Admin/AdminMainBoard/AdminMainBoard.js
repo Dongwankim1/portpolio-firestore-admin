@@ -7,6 +7,7 @@ import fb from '../../../firebase';
 export default function AdminMainBoard() {
     const [language,setLanguage] = useState("선택");
     const [plang,setPlang] = useState();
+    const [currentLangList,setCurrentLangList] = useState([]);
     useEffect(() => {
 
         const db = fb.firestore();
@@ -15,16 +16,21 @@ export default function AdminMainBoard() {
                 setPlang(doc.data().planglist)
             });
         })
-        return () => {
-           
-        }
-    }, [])
+    
+    }, [currentLangList])
     const save = function(){
 
     }
 
     const handleChange = function(e){
         setLanguage(e.target.value);
+        const result = currentLangList.filter(data => data === e.target.value);
+        if(result.length>0){
+          alert("이미 존재하는 언어입니다");
+          return;
+        }
+    
+        setCurrentLangList(currentLangList.concat(e.target.value));
     }
 
   return (
@@ -64,7 +70,7 @@ export default function AdminMainBoard() {
                     </Select>
             </div>
             <div className="AdminMainBoard_item">
-              <AdminCard/>
+              <AdminCard langData={currentLangList}/>
             </div>
           </div>
 
