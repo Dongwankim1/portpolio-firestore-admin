@@ -10,25 +10,29 @@ import firebase from './firebase'
 function App() {
   const [user,setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(()=>{
-    firebase.auth().onAuthStateChanged(user => {
+  useEffect(async ()=>{
+    const user =await firebase.auth().onAuthStateChanged(user => {
       if (user) {
+          //return user
           setUser(user);
+          
+          console.log('asdfaef1212')
           //dispatch(getBoardData());
       } else {
           //history.push('/admin')
       }
 
   })
+  //setUser(user);
   },[])
 
   const logout = () => {
     firebase.auth().signOut();
-    console.log("asdasd111")
+    console.log("asdasd11221")
     setUser(null);
     //history.push('/admin')
 }
-  console.log(user);
+
   return (
     <div className="App">
       <BrowserRouter>

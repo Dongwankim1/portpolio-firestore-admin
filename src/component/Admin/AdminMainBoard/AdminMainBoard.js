@@ -1,13 +1,19 @@
-import { Button, MenuItem, TextField,Select } from "@material-ui/core";
+import { Button, MenuItem, TextField,Select, InputLabel } from "@material-ui/core";
 import React,{useState,useEffect} from "react";
 import "./AdminMainBoard.css";
-import MUIRichTextEditor from 'mui-rte'
 import AdminCard from './AdminCard/AdminCard'
+import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftToHtml from 'draftjs-to-html';
 import fb from '../../../firebase';
 export default function AdminMainBoard() {
     const [language,setLanguage] = useState("선택");
     const [plang,setPlang] = useState();
     const [currentLangList,setCurrentLangList] = useState([]);
+    const [content,setContent] = useState(null);
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+
     useEffect(() => {
 
         const db = fb.firestore();
@@ -18,10 +24,16 @@ export default function AdminMainBoard() {
         })
     
     }, [currentLangList])
-    const save = function(){
-
+    const save = function(e){
+        console.log(e)
     }
-
+    const handleEditChange = (value) =>{
+      const content = JSON.stringify(
+        convertToRaw(value.getCurrentContent())
+      );
+      setContent(content);
+      console.log(content)
+    } 
     const handleChange = function(e){
         setLanguage(e.target.value);
         const result = currentLangList.filter(data => data === e.target.value);
@@ -31,6 +43,11 @@ export default function AdminMainBoard() {
         }
     
         setCurrentLangList(currentLangList.concat(e.target.value));
+    }
+
+    const saveCareerItem = () =>{
+      const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+      console.log(content);
     }
 
   return (
@@ -49,11 +66,14 @@ export default function AdminMainBoard() {
               />
             </div>
             <div className="AdminMainBoard_item Editor">
-              <MUIRichTextEditor
-                 label="Type something here..."
-                 onSave={save}
-                 inlineToolbar={true}
-              />
+                     <InputLabel>상세내용</InputLabel>
+                        <Editor
+                            editorState={editorState}
+                            toolbarClassName="toolbarClassName"
+                            wrapperClassName="wrapperClassName"
+                            editorClassName="editorClassName"
+                            onEditorStateChange={setEditorState}
+                        />
             </div>
             <div className="AdminMainBoard_item">
                         <Select
@@ -75,7 +95,7 @@ export default function AdminMainBoard() {
           </div>
 
           <div className="AdminMainBoard__right">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={saveCareerItem}>
               저장
             </Button>
           </div>
