@@ -1,0 +1,16 @@
+.Portfolio{
+    background-image: linear-gradient(to right bottom,#8360c3,#2ebf91);
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.PortfolioContainer{
+
+    height: 80vh;
+    width:80%;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px;
+}
