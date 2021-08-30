@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
+import {Link} from 'react-router-dom'
 import './NavBar.css';
-export default function NavBar() {
+export default function NavBar({active,setActive}) {
     
-    const [active,setActive] = useState('About');
+   
+
+  
 
     return (
         <div className="navbar">
@@ -11,10 +14,12 @@ export default function NavBar() {
             </div>
             <div className="navbar__items">
                 {active !== 'About' &&
+   
                 <div className="navbar__item" onClick={()=>setActive('About')}>About</div>
+
                 }
-                {active !== "Resume" ? <div className="navbar__item" onClick={()=>setActive('Resume')}>Resume</div> :null}
-                {active !== "Projects" ?  <div className="navbar__item" onClick={()=>setActive('Projects')}>Projects</div> :null}
+                {active !== "Resume" ? <div className="navbar__item" onClick={()=>setActive('Resume')}>Resume</div>:null}
+                {active !== "Projects" ? <div className="navbar__item" onClick={()=>setActive('Projects')}>Projects</div> :null}
                
             </div>
             
