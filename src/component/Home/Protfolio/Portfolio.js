@@ -10,17 +10,18 @@ import { useEffect } from 'react';
 export default function Portfolio() {
 
     const [active,setActive] = useState('Projects');
-    const [projects,setProjects] = useState('');
+    const [projects,setProjects] = useState([]);
     useEffect(()=>{
         firebase.firestore()
         .collection("tb_project")
         .get()
         .then((snap)=>{
             snap.forEach((doc)=>{
-                setProjects(doc.data());
+                console.log(snap);
+                setProjects([...projects,doc.data()]);
             })
         })
-
+        
     },[])
 
 
