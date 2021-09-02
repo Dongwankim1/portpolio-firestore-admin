@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-
+import './ProjectCard.css';
 export default function ProjectCard({project}) {
 
     console.log('asfasf',project)
@@ -16,9 +16,10 @@ export default function ProjectCard({project}) {
               </a>
               <div className="projectCard__title">
               <a href={"#"} target="_blank">
-                  <img src={project ? project.image[0]: null} alt={""} className="projectCard__image"/>
+                  <img src={project ? project.image[0]: null} alt={""} className="projectCard__icon"/>
               </a>
 
+              {project.title}
               </div>
           </figure>
       </div>

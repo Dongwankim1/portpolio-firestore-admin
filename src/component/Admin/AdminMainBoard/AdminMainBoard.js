@@ -1,3 +1,4 @@
+import 'date-fns';
 import { Button, MenuItem, TextField,Select, InputLabel } from "@material-ui/core";
 import React,{useState,useEffect} from "react";
 import "./AdminMainBoard.css";
@@ -6,14 +7,28 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from 'draftjs-to-html';
+import DateFnsUtils from '@date-io/date-fns';
 import fb from '../../../firebase';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 export default function AdminMainBoard() {
     const [language,setLanguage] = useState("선택");
     const [plang,setPlang] = useState();
     const [currentLangList,setCurrentLangList] = useState([]);
     const [content,setContent] = useState(null);
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
+    const [title,setTitle] = useState("");
+    const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
 
+    const handleStartDateChange = (date) => {
+      setSelectedStartDate(date);
+    };
+    const handleEndDateChange = (date) => {
+      setSelectedEndDate(date);
+    };
     useEffect(() => {
 
         const db = fb.firestore();
@@ -32,7 +47,7 @@ export default function AdminMainBoard() {
         convertToRaw(value.getCurrentContent())
       );
       setContent(content);
-      console.log(content)
+
     } 
     const handleChange = function(e){
         setLanguage(e.target.value);
@@ -47,6 +62,33 @@ export default function AdminMainBoard() {
 
     const saveCareerItem = () =>{
       const content = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+
+      const db = fb.firestore();
+      const data = db.collection("tb_project").add({
+        title:title,
+        content:content,
+        //startdate:startdate,
+        //completedate:completedate,
+        devstuff:currentLangList,
+        //image:[...base64]
+    }).then((docRef)=>{
+        console.log("Document written with ID",docRef.id);
+        return docRef.get().then((doc) => {
+            if (doc.exists) {
+                return doc.data();
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+    }).catch((error)=>{
+        alert("Error adding document:",error);
+    })
+
+
       console.log(content);
     }
 
@@ -63,7 +105,39 @@ export default function AdminMainBoard() {
                 label="Title"
                 defaultValue="Hello World"
                 variant="outlined"
+                value={title}
+                onChange={(e)=>setTitle(e.target.value)}
               />
+            </div>
+            <div className="AdminMainBoard_date">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="yyyy/MM/dd"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={selectedStartDate}
+                onChange={handleStartDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+              <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="yyyy/MM/dd"
+                  margin="normal"
+                  id="date-picker-inline"
+                  label="Date picker inline"
+                  value={selectedEndDate}
+                  onChange={handleEndDateChange}
+                  KeyboardButtonProps={{
+                    'aria-label': 'change date',
+                  }}
+                />
+                </MuiPickersUtilsProvider>
             </div>
             <div className="AdminMainBoard_item Editor">
                      <InputLabel>상세내용</InputLabel>
