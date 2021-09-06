@@ -5,7 +5,7 @@ import './Admin.css';
 export default function Admin({user,setUser}) {
     
     useEffect(()=>{
-        console.log('asdfaef121qwfqwf2')
+
     },[])
 
     return (

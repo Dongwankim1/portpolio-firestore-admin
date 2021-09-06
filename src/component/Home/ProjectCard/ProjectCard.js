@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import './ProjectCard.css';
 export default function ProjectCard({project}) {
 
-    console.log('asfasf',project)
+ 
     useEffect(() => {
         
-    console.log('asfasf',project)
+ 
     }, [project])
 
     return (

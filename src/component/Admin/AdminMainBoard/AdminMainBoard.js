@@ -13,6 +13,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 export default function AdminMainBoard() {
     const [language,setLanguage] = useState("선택");
     const [plang,setPlang] = useState();
@@ -22,6 +23,7 @@ export default function AdminMainBoard() {
     const [title,setTitle] = useState("");
     const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
     const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [mainImage,setMainImage] = useState("");
 
     const handleStartDateChange = (date) => {
       setSelectedStartDate(date);
@@ -67,12 +69,13 @@ export default function AdminMainBoard() {
       const data = db.collection("tb_project").add({
         title:title,
         content:content,
-        //startdate:startdate,
-        //completedate:completedate,
+        startdate:selectedStartDate,
+        completedate:selectedEndDate,
         devstuff:currentLangList,
-        //image:[...base64]
+        image:[mainImage]
     }).then((docRef)=>{
         console.log("Document written with ID",docRef.id);
+        alert("저장완료")
         return docRef.get().then((doc) => {
             if (doc.exists) {
                 return doc.data();
@@ -89,7 +92,19 @@ export default function AdminMainBoard() {
     })
 
 
-      console.log(content);
+    }
+
+    const handleFileonChange = (e) =>{
+      e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if(base64){
+        setMainImage(base64.toString());
+      }
+    }
+    reader.readAsDataURL(file);
     }
 
   return (
@@ -169,9 +184,33 @@ export default function AdminMainBoard() {
           </div>
 
           <div className="AdminMainBoard__right">
+              <div className="AdminMainBoard__MainImage">
+                      <figure className="AdminMainBoard__Figure">
+
+                            <img src={mainImage}></img>
+                         </figure>
+                         <div className="AdminMainBoard__MainImage__BtnGroup">
+                         <Button
+                      variant="contained"
+                      color="default"
+                      className={"AdminMainBoard__Btn"}
+                      startIcon={<CloudUploadIcon />}
+                    >UPLOAD  <input type='file' 
+                    accept='image/jpg,impge/png,image/jpeg,image/gif' 
+                    name='profile_img' 
+                  
+                   onChange={handleFileonChange}>
+                </input></Button>
+
+                         </div>
+                
+              </div>
+              <div className="AdminMainBoard__Save">
+
             <Button variant="contained" color="primary" onClick={saveCareerItem}>
               저장
             </Button>
+              </div>
           </div>
         </div>
       </div>

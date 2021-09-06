@@ -16,10 +16,13 @@ export default function Portfolio() {
         .collection("tb_project")
         .get()
         .then((snap)=>{
+            const data = [];
             snap.forEach((doc)=>{
-                console.log(snap);
-                setProjects([...projects,doc.data()]);
+                console.log(doc.data());
+                data.push(doc.data())
+            
             })
+            setProjects(data);
         })
         
     },[])

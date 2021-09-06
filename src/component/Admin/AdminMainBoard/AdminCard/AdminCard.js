@@ -20,7 +20,7 @@ export default function AdminCard({langData}) {
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(2);
     useEffect(() => {
-        console.log('dddddddd',langData)
+
        
     }, [langData])
     return (

@@ -11,12 +11,11 @@ export default function AdminLogin({user,setUser}) {
     const handleSignIn = (e)=>{
         e.preventDefault();
 
-        console.log(firebase);
         firebase.auth().signInWithEmailAndPassword(
             email,
             password
         ).then((authUser)=>{
-            console.log(authUser);
+
             setUser(authUser);
             //history.push('/admin/dashBoard');
         }).catch((err)=>{

@@ -16,7 +16,6 @@ function App() {
           //return user
           setUser(user);
           
-          console.log('asdfaef1212')
           //dispatch(getBoardData());
       } else {
           //history.push('/admin')
@@ -28,7 +27,7 @@ function App() {
 
   const logout = () => {
     firebase.auth().signOut();
-    console.log("asdasd11221")
+
     setUser(null);
     //history.push('/admin')
 }
