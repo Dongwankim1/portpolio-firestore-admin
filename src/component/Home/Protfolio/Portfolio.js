@@ -12,18 +12,36 @@ export default function Portfolio() {
     const [active,setActive] = useState('Projects');
     const [projects,setProjects] = useState([]);
     useEffect(()=>{
-        firebase.firestore()
-        .collection("tb_project")
-        .get()
-        .then((snap)=>{
-            const data = [];
-            snap.forEach((doc)=>{
-                console.log(doc.data());
-                data.push(doc.data())
-            
+        firebase.firestore().collection("tb_plang").get()
+            .then((snap)=>{
+                let plang ="";
+                snap.forEach((doc)=>{
+                    plang = doc.data()
+                })
+                
+                firebase.firestore()
+                .collection("tb_project")
+                .get()
+                .then((snap)=>{
+                    const data = [];
+                    let copied = null ;
+                    snap.forEach((doc)=>{
+                        copied = Object.assign({},doc.data())
+                        for(let i=0;i<doc.data().devstuff.length;i++){
+                            copied.devstuff[i] = plang.planglist[doc.data().devstuff[i]]
+                            
+                        }
+      
+                        data.push(copied)
+                    
+                    })
+                    setProjects(data);
+                    
+        
+                })
+
             })
-            setProjects(data);
-        })
+       
         
     },[])
 
