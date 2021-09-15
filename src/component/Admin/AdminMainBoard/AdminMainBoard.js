@@ -8,6 +8,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftToHtml from 'draftjs-to-html';
 import DateFnsUtils from '@date-io/date-fns';
+import {convertDate} from '../../../utils'
 import fb from '../../../firebase';
 import {
   MuiPickersUtilsProvider,
@@ -26,10 +27,10 @@ export default function AdminMainBoard() {
     const [mainImage,setMainImage] = useState("");
 
     const handleStartDateChange = (date) => {
-      setSelectedStartDate(date);
+      setSelectedStartDate(convertDate(date));
     };
     const handleEndDateChange = (date) => {
-      setSelectedEndDate(date);
+      setSelectedEndDate(convertDate(date));
     };
     useEffect(() => {
 

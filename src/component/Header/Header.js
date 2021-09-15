@@ -17,13 +17,13 @@ const Header = ({menuOpen,setMenuOpen,user,logout}) =>{
             <div className="Header__wrapper">
                 <div className="Header__left">
                 <a href="https://github.com/Dongwankim1">
-                        <FacebookIcon   style={menuOpen ? ({ color: common.white }) : null} fontSize="large"/>
+                        <FacebookIcon   style={{color:common.white}} fontSize="large"/>
                         </a>
                         <a href="https://github.com/Dongwankim1">
-                        <GitHubIcon style={menuOpen ? ({ color: common.white }) : null} fontSize="large"/>
+                        <GitHubIcon style={{color:common.white}} fontSize="large"/>
                         </a>
                         <a href="https://www.linkedin.com/in/%EB%94%94%EC%B0%8C-hip-05a2791a2/">
-                        <LinkedInIcon style={menuOpen ? ({ color: common.white }) : null} fontSize="large"/>
+                        <LinkedInIcon style={{color:common.white}} fontSize="large"/>
                     </a>
                     <div className="itemContainer">
                  

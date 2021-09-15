@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+
 .projectCard__wrapper{
     margin:10px 0;
     width:100%;
@@ -14,12 +17,7 @@
     transition: transform 0.3s linear;
 }
 
-.projectCard__icon{
-    width:125px;
-    height:25px;
-    margin-right: 4px;
 
-}
 
 .projectCard__title{
     margin-top:12px;
@@ -36,5 +34,42 @@
 .projectCard__devtool{
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
+    margin-top: 10px;
+    
+}
+.projectCard__devtool__one{
+    margin-bottom: 8px;
+}
+.projectCard__devtool__two{
+    display: flex;
+   
+    flex-wrap: wrap;
+}
+.projectCard__icon{
+    width:100px;
+    height:25px;
+    margin-right: 4px;
+    border-radius: 5px;
 }
 
+
+.projectCard__title__dic{
+    text-decoration: none;
+    font-size: 18pt;
+    font-family: 'Nanum Pen Script', cursive;
+    color: #354548;
+    border-bottom: #000 solid 0.1rem;
+}
+
+.projectCard__title__dic:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+.projectCard__contentBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
