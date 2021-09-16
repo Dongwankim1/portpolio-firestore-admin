@@ -53,6 +53,7 @@ export default function Portfolio() {
                  <NavBar active={active} setActive={setActive}/>
                 
                     {active === "About" ? <About/> : null}
+               
                     {active === "Resume" ? <Resume/> : null}
                     {active === "Projects" ? <Projects projects={projects}/> : null}
               

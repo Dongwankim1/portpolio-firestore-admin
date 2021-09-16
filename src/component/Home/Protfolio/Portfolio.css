@@ -1,5 +1,5 @@
 .Portfolio{
-    background-image: linear-gradient(to right bottom,#203A43,#2C5364);
+    background-image: linear-gradient(to top bottom,white,black);
     display: flex;
 
     justify-content: center;

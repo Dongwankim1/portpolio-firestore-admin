@@ -22,15 +22,15 @@ export default function AdminMainBoard() {
     const [content,setContent] = useState(null);
     const [editorState, setEditorState] = useState(() => EditorState.createEmpty())
     const [title,setTitle] = useState("");
-    const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2014-08-18T21:11:54'));
-    const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedStartDate, setSelectedStartDate] = React.useState(new Date('2021-09-18T21:11:54'));
+    const [selectedEndDate, setSelectedEndDate] = React.useState(new Date('2021-09-17T21:11:54'));
     const [mainImage,setMainImage] = useState("");
 
     const handleStartDateChange = (date) => {
-      setSelectedStartDate(convertDate(date));
+      setSelectedStartDate(date);
     };
     const handleEndDateChange = (date) => {
-      setSelectedEndDate(convertDate(date));
+      setSelectedEndDate(date);
     };
     useEffect(() => {
 
@@ -70,8 +70,8 @@ export default function AdminMainBoard() {
       const data = db.collection("tb_project").add({
         title:title,
         content:content,
-        startdate:selectedStartDate,
-        completedate:selectedEndDate,
+        startdate:convertDate(selectedStartDate),
+        completedate:convertDate(selectedEndDate),
         devstuff:currentLangList,
         image:[mainImage]
     }).then((docRef)=>{

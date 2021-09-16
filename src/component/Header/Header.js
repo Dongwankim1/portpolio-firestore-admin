@@ -17,13 +17,13 @@ const Header = ({menuOpen,setMenuOpen,user,logout}) =>{
             <div className="Header__wrapper">
                 <div className="Header__left">
                 <a href="https://github.com/Dongwankim1">
-                        <FacebookIcon   style={{color:common.white}} fontSize="large"/>
+                        <FacebookIcon   style={{color:common.black}} fontSize="large"/>
                         </a>
                         <a href="https://github.com/Dongwankim1">
-                        <GitHubIcon style={{color:common.white}} fontSize="large"/>
+                        <GitHubIcon style={{color:common.black}} fontSize="large"/>
                         </a>
                         <a href="https://www.linkedin.com/in/%EB%94%94%EC%B0%8C-hip-05a2791a2/">
-                        <LinkedInIcon style={{color:common.white}} fontSize="large"/>
+                        <LinkedInIcon style={{color:common.black}} fontSize="large"/>
                     </a>
                     <div className="itemContainer">
                  
@@ -37,13 +37,13 @@ const Header = ({menuOpen,setMenuOpen,user,logout}) =>{
                     {user ? (<div className="logout">
                         <button className="logoutButton" onClick={logout}>LOGOUT</button>
                     </div>):null}
-                    
+                 {/*}
                     <div className={"hamburger " + (menuOpen && "active")} onClick={handleMenu} >
                         <span className="line1"></span>
                         <span className="line2"></span>
                         <span className="line3"></span>
 
-                    </div>
+    </div>*/}
                 </div>
             </div>
         </div>
